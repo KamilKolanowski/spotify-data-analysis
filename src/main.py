@@ -9,16 +9,13 @@ sc = spark.sparkContext
 
 apm = APIMethods()
 
-
 if __name__ == "__main__":
     # Prepare playlist dataframe
-    playlist_id = "37i9dQZEVXbMDoHDwVN2tF"
-    playlists_df = apm.process_playlists(playlist_id)
+    playlist_id = "4IAGMLxu1OLYgj27083hvY"
 
-    # Prepare artists dataframe, based on the list of artists within earlier processed playlist
-    artists = playlists_df.select(F.col("artist_id")).distinct().collect()
-    artists = [item for artist in artists for item in list(artist)]
+    top_2023_tracks = [row['track_id'] for row in apm.process_playlists(playlist_id)
+                                                     .distinct()
+                                                     .select('track_id').collect()]
 
-    df = apm.process_audio_analysis(["5qaEfEh1AtSdrdrByCP7qR", "1SShxVVBeZBCY7WddnksPz"])
-    df.show()
-
+    audio_analysis_top_2023 = apm.process_audio_analysis(top_2023_tracks)
+    audio_analysis_top_2023.show()
