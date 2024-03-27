@@ -1,6 +1,12 @@
-import requests
-import os
+from pyspark.sql import SparkSession
 from dotenv import load_dotenv
+import requests
+import json
+import os
+
+
+spark = SparkSession.builder.getOrCreate()
+sc = spark.sparkContext
 
 
 class SpotifyAPI:
@@ -26,3 +32,18 @@ class SpotifyAPI:
                                 headers=dict(Authorization=f"Bearer {self.get_access_token()}"))
 
         return response.json()
+
+    def process_single_row_objects(self, endpoint: str, objects: list):
+        objects_to_process = []
+
+        for obj in objects:
+            objects_to_process.append(self.parse_json(endpoint, obj))
+
+        obj_dict = sc.parallelize(objects_to_process).map(lambda x: json.dumps(x))
+        objs = spark.read.json(obj_dict)
+
+        return objs
+
+    @staticmethod
+    def read_json_to_df(obj):
+        return spark.read.json(sc.parallelize([json.dumps(obj)]))
