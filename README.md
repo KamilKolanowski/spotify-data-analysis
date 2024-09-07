@@ -73,9 +73,9 @@ This project demonstrates how to use the Spotify API to perform data analysis on
 1. Obtain Spotify API credentials by creating an app on the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
 2. Set up your credentials in Databricks Secret Scope:
     ```sh
-    SPOTIPY_CLIENT_ID='your_client_id'
-    SPOTIPY_CLIENT_SECRET='your_client_secret'
-    SPOTIPY_REDIRECT_URI='your_redirect_uri'
+    SPOTIFY_CLIENT_ID='your_client_id'
+    SPOTIFY_CLIENT_SECRET='your_client_secret'
+    SPOTIFY_REDIRECT_URI='your_redirect_uri'
     ```
 
 ### Running the Project
