@@ -55,7 +55,7 @@ This project demonstrates how to use the Spotify API to perform data analysis on
 
 1. Clone this repository to your local machine:
     ```sh
-    git clone https://github.com/yourusername/spotify-data-analysis.git
+    git clone https://github.com/KamilKolanowski/spotify-data-analysis.git
     ```
 
 2. Navigate to the project directory:
